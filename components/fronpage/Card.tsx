@@ -1,33 +1,26 @@
-import { Button, Grid, GridItem } from "@chakra-ui/react";
+import { Button, Flex, Grid } from "@chakra-ui/react";
 import StoreBrands from "./StoreBrands";
 import FeaturedCard from "./FeaturedCard";
 
 const Card = () => {
   return (
-    <Grid
+    <Flex
       as="section"
       margin="auto"
-      w={["100%", "90%"]}
-      h="100vh"
-      templateRows="repeat(5, 1fr)"
-      templateColumns="repeat(3, 1fr)"
+      direction="column"
+      w={["100%", "100%", "90%"]}
+      h="93vh"
+      justifyContent="space-between"
     >
-      <GridItem colSpan={2} rowSpan={4}>
+      <Flex wrap="wrap" w="100%" h="93%" justifyContent="space-around">
         <StoreBrands />
-      </GridItem>
-      <GridItem colSpan={1} rowSpan={4}>
         <FeaturedCard />
-      </GridItem>
-      <GridItem
-        display="flex"
-        alignItems="flex-end"
-        justifyContent="center"
-        colSpan={3}
-        rowSpan={1}
-      >
+      </Flex>
+
+      <Grid w="100%" placeItems="center">
         <Button mb="1">see more</Button>
-      </GridItem>
-    </Grid>
+      </Grid>
+    </Flex>
   );
 };
 
