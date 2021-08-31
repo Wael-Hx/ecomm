@@ -1,4 +1,4 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Heading, VStack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { Apple, Samsung, Xiaomi } from "./Icons";
@@ -29,23 +29,27 @@ const LogosContainer = styled(motion.div)`
   display: flex;
 
   & > * {
-    margin-left: 2em;
+    margin-left: 1.5rem;
   }
 `;
 const StoreBrands = () => {
   return (
-    <Box
-      display="flex"
-      flexDir="column"
-      justifyContent="space-evenly"
-      h="70%"
-      marginTop="12"
+    <VStack
+      alignItems="start"
+      spacing="4"
+      w={["100%", "100%", "100%", "65%"]}
+      h={["30%", "30%", "30%", "70%"]}
+      mt={["2rem", "2rem", "3rem"]}
     >
       <motion.div
         animate={{ x: 50 }}
         transition={{ ease: "easeInOut", duration: 0.5 }}
       >
-        <Heading textTransform="uppercase" as="h1" size="4xl">
+        <Heading
+          textTransform="uppercase"
+          as="h1"
+          fontSize={["3xl", "4xl", "5xl", "7xl"]}
+        >
           Explore our <br /> Deals
         </Heading>
       </motion.div>
@@ -60,7 +64,7 @@ const StoreBrands = () => {
           <Samsung boxSize="20" />
         </motion.div>
       </LogosContainer>
-    </Box>
+    </VStack>
   );
 };
 
