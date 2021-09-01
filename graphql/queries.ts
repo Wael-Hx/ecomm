@@ -1,4 +1,5 @@
-import { gql } from "@apollo/client";
+import { gql, makeVar } from "@apollo/client";
+import { Shop } from "../types";
 
 export const GET_SHOP = gql`
   query GetShop {
@@ -8,6 +9,7 @@ export const GET_SHOP = gql`
         logo
       }
       smartphones {
+        id
         name
         brand
         specs {
@@ -27,3 +29,8 @@ export const GET_SHOP = gql`
     }
   }
 `;
+
+export const shop = makeVar<Shop>({
+  brands: [],
+  smartphones: [],
+});

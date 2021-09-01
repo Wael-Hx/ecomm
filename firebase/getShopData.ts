@@ -12,7 +12,10 @@ export default async function getShopData(): Promise<Shop> {
     ]);
     brandsQuery.forEach((brand) => brands.push(brand.data() as Brand));
     smartphonesQuery.forEach((smartphone) =>
-      smartphones.push(smartphone.data() as Smartphone)
+      smartphones.push({
+        ...(smartphone.data() as Smartphone),
+        id: smartphone.id,
+      })
     );
 
     return {
