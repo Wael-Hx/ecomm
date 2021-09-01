@@ -1,7 +1,14 @@
+import { useQuery } from "@apollo/client";
 import Head from "next/head";
+import Card from "../components/fronpage/Card";
 import Navbar from "../components/nav/Navbar";
+import { initializeApollo } from "../graphql/client";
+import { GET_SHOP } from "../graphql/queries";
+import { Shop } from "../types";
 
 const Home = () => {
+  useQuery(GET_SHOP);
+
   return (
     <>
       <Head>
@@ -10,9 +17,21 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main>main content</main>
+      <Card />
     </>
   );
 };
 
 export default Home;
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
+  await apolloClient.query<{ getShop: Shop }>({
+    query: GET_SHOP,
+  });
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  };
+}
