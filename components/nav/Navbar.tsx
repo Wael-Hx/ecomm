@@ -6,7 +6,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 const Navbar = () => {
   return (
     <Flex
-      position="fixed"
+      position="sticky"
       top="0"
       zIndex={3}
       alignItems="center"
