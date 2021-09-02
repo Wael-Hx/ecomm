@@ -37,9 +37,8 @@ const StoreBrands = () => {
     <VStack
       alignItems="start"
       spacing="4"
-      w={["100%", "100%", "100%", "65%"]}
-      h={["30%", "30%", "30%", "70%"]}
-      mt={["2rem", "2rem", "3rem"]}
+      w={{ base: "100%", md: "65%" }}
+      mt={{ base: "1rem", md: "3rem" }}
     >
       <motion.div
         animate={{ x: 50 }}
@@ -48,20 +47,20 @@ const StoreBrands = () => {
         <Heading
           textTransform="uppercase"
           as="h1"
-          fontSize={["3xl", "4xl", "5xl", "7xl"]}
+          fontSize="clamp(2.5rem, 4.5vw, 7rem)"
         >
           Explore our <br /> Deals
         </Heading>
       </motion.div>
       <LogosContainer initial="hidden" animate="visible" variants={list}>
         <motion.div variants={item}>
-          <Apple boxSize="20" />
+          <Apple boxSize={{ base: "14", md: "16", lg: "20" }} />
         </motion.div>
         <motion.div variants={item}>
-          <Xiaomi boxSize="20" />
+          <Xiaomi boxSize={{ base: "14", md: "16", lg: "20" }} />
         </motion.div>
         <motion.div variants={item}>
-          <Samsung boxSize="20" />
+          <Samsung boxSize={{ base: "14", md: "16", lg: "20" }} />
         </motion.div>
       </LogosContainer>
     </VStack>
