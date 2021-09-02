@@ -24,6 +24,11 @@ const item = {
   hidden: { opacity: 0, x: -100 },
 };
 
+const heading = {
+  visible: { opacity: 1, x: 50 },
+  hidden: { opacity: 0, x: 0 },
+};
+
 const LogosContainer = styled(motion.div)`
   width: 100%;
   display: flex;
@@ -41,7 +46,9 @@ const StoreBrands = () => {
       mt={{ base: "1rem", md: "3rem" }}
     >
       <motion.div
-        animate={{ x: 50 }}
+        variants={heading}
+        initial="hidden"
+        animate="visible"
         transition={{ ease: "easeInOut", duration: 0.5 }}
       >
         <Heading
