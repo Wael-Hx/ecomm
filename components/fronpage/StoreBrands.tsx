@@ -1,7 +1,7 @@
 import { Heading, VStack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
-import { Apple, Samsung, Xiaomi } from "./Icons";
+import { Apple, Samsung, Xiaomi } from "../ui/icons";
 
 const list = {
   visible: {
