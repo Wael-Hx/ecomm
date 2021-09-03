@@ -1,8 +1,8 @@
 import { useApolloClient } from "@apollo/client";
 import { Box, HStack, Image, StackProps, Text, VStack } from "@chakra-ui/react";
 import { motion, Variants } from "framer-motion";
-import { GET_SHOP } from "../../graphql/queries";
-import { Shop, Smartphone } from "../../types";
+import { GET_SHOP } from "../../../graphql/queries";
+import { Shop, Smartphone } from "../../../types";
 
 const getItem = (smartphones: Smartphone[]) => {
   const idx = Math.ceil(Math.random() * (smartphones.length - 1));
@@ -14,7 +14,7 @@ const card: Variants = {
   visible: {
     opacity: 1,
     x: -30,
-    transition: { ease: "easeInOut", duration: 0.5 },
+    transition: { ease: "easeInOut", duration: 1 },
   },
   hidden: { opacity: 0, x: 30 },
 };
@@ -41,6 +41,7 @@ const FeaturedCard = () => {
       variants={card}
       initial="hidden"
       animate="visible"
+      h="65%"
     >
       <HStack spacing="1">
         <HStack w="5ch" h="3ch" bg="black">
@@ -50,9 +51,8 @@ const FeaturedCard = () => {
         </HStack>
         <Text as="h4"> {((phone.price * 80) / 100).toFixed(2)}$ </Text>
       </HStack>
-      <Box maxW="67%">
+      <Box maxW="67%" w="67%" css={{ aspectRatio: "9/12" }}>
         <Image src={phone.image} alt={phone.name} />
-        <Text as="h4"> {phone.name} </Text>
       </Box>
     </AnimatedCard>
   );

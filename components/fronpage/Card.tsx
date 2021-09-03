@@ -2,7 +2,9 @@ import dynamic from "next/dynamic";
 import { Flex } from "@chakra-ui/react";
 import StoreBrands from "./StoreBrands";
 
-const FeaturedCard = dynamic(() => import("./FeaturedCard"), { ssr: false });
+const FeaturedCard = dynamic(() => import("./featured/FeaturedCard"), {
+  ssr: false,
+});
 
 const Card = () => {
   return (
