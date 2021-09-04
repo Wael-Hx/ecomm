@@ -1,4 +1,11 @@
 import { Icon, IconProps } from "@chakra-ui/react";
+import { MdBatteryChargingFull, MdStorage } from "react-icons/md";
+import { AiOutlineCamera, AiFillAndroid } from "react-icons/ai";
+import { CgScreen, CgScreenShot } from "react-icons/cg";
+import { FiCpu } from "react-icons/fi";
+import { FaMicrochip } from "react-icons/fa";
+import { SiIos } from "react-icons/si";
+import { IconBaseProps } from "react-icons/lib";
 
 export const Samsung = (props: IconProps) => (
   <Icon viewBox="0 0 192.756 192.756" {...props}>
@@ -30,3 +37,34 @@ export const Xiaomi = (props: IconProps) => (
     <path d="M4 7h2v7H4zM12 3h2v11h-2z" />
   </Icon>
 );
+
+export const OptionIcons = ({
+  os,
+  prop,
+  ...rest
+}: IconBaseProps & { os: string; prop: string }) => {
+  switch (prop) {
+    case "ram":
+      return <FaMicrochip {...rest} />;
+    case "storage":
+      return <MdStorage {...rest} />;
+    case "batterie":
+      return <MdBatteryChargingFull {...rest} />;
+    case "resolution":
+      return <CgScreen {...rest} />;
+    case "CPU":
+      return <FiCpu {...rest} />;
+    case "cameras":
+      return <AiOutlineCamera {...rest} />;
+    case "screenSize":
+      return <CgScreenShot {...rest} />;
+    case "OS":
+      return os.toLowerCase().includes("ios") ? (
+        <SiIos {...rest} />
+      ) : (
+        <AiFillAndroid {...rest} />
+      );
+    default:
+      return null;
+  }
+};
