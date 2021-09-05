@@ -71,7 +71,7 @@ const FeaturedCard = () => {
   return (
     <AnimatedCard
       fontFamily="Montserrat"
-      fontSize=".87rem"
+      fontSize="clamp(0.7rem, 1.5vmin, 2.5rem)"
       alignItems="start"
       w={{ base: "80%", md: "35%" }}
       spacing="2"
@@ -91,6 +91,7 @@ const FeaturedCard = () => {
         <Text as="h4"> {((phone.price * 80) / 100).toFixed(2)}$ </Text>
       </HStack>
       <MotionBox
+        tabIndex={0}
         background="url(/loading.svg) center no-repeat"
         backgroundSize="25% 25%"
         maxW="67%"
@@ -103,7 +104,7 @@ const FeaturedCard = () => {
         whileTap="hover"
         variants={imageAnimation}
       >
-        <Image src={phone.image} alt={phone.name} />
+        <Image w="100%" src={phone.image} alt={phone.name} />
         <Specs
           options={phone.specs}
           ram={phone.ram}
@@ -112,7 +113,7 @@ const FeaturedCard = () => {
         />
         <MotionBox
           pos="absolute"
-          top="-7%"
+          top="-6%"
           left="-5%"
           variants={name}
           as="h4"

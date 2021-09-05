@@ -54,7 +54,7 @@ const StoreBrands = () => {
         <Heading
           textTransform="uppercase"
           as="h1"
-          fontSize="clamp(2.5rem, 4.5vw, 7rem)"
+          fontSize="clamp(2.5rem, 5.5vw, 20rem)"
         >
           Explore our <br /> Deals
         </Heading>
@@ -66,7 +66,7 @@ const StoreBrands = () => {
           }}
           variants={item}
         >
-          <Apple boxSize={{ base: "14", md: "16", lg: "20" }} />
+          <Apple boxSize="12vmin" />
         </motion.div>
         <motion.div
           whileHover={{
@@ -74,7 +74,7 @@ const StoreBrands = () => {
           }}
           variants={item}
         >
-          <Xiaomi boxSize={{ base: "14", md: "16", lg: "20" }} />
+          <Xiaomi boxSize="12vmin" />
         </motion.div>
         <motion.div
           whileHover={{
@@ -82,7 +82,7 @@ const StoreBrands = () => {
           }}
           variants={item}
         >
-          <Samsung boxSize={{ base: "14", md: "16", lg: "20" }} />
+          <Samsung boxSize="12vmin" />
         </motion.div>
       </LogosContainer>
     </VStack>

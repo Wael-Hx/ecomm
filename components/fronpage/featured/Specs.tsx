@@ -59,11 +59,15 @@ const Specs = (props: SpecProps) => {
         >
           <OptionIcons
             color="#426e86"
-            size="1.5rem"
+            boxSize="4vmin"
             os={optionsData.OS}
             prop={prop}
           />
-          <Text fontWeight="light" as="h4" fontSize="1rem">
+          <Text
+            fontWeight="light"
+            as="h4"
+            fontSize="clamp(0.7rem, 1.8vmin, 2.5rem)"
+          >
             {optionsData[prop]}
           </Text>
         </MotionContainer>
