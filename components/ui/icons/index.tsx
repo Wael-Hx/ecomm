@@ -38,6 +38,22 @@ export const Xiaomi = (props: IconProps) => (
   </Icon>
 );
 
+export const BrandIcon = ({
+  brandName,
+  ...rest
+}: IconProps & { brandName: string }) => {
+  switch (brandName) {
+    case "apple":
+      return <Apple {...rest} />;
+    case "xiaomi":
+      return <Xiaomi {...rest} />;
+    case "samsung":
+      return <Samsung {...rest} />;
+    default:
+      return null;
+  }
+};
+
 export const OptionIcons = ({
   os,
   prop,
