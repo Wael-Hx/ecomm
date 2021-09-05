@@ -12,8 +12,9 @@ const Navbar = () => {
       alignItems="center"
       justifyContent="space-between"
       as="nav"
-      w="100vw"
+      w="100%"
       h="3em"
+      bg="white"
     >
       <HStack paddingInline={["1em", "3em"]} spacing="1">
         <FiSmartphone size="1.3em" />
