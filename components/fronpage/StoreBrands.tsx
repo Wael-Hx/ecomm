@@ -60,13 +60,28 @@ const StoreBrands = () => {
         </Heading>
       </motion.div>
       <LogosContainer initial="hidden" animate="visible" variants={list}>
-        <motion.div variants={item}>
+        <motion.div
+          whileHover={{
+            fill: "silver",
+          }}
+          variants={item}
+        >
           <Apple boxSize={{ base: "14", md: "16", lg: "20" }} />
         </motion.div>
-        <motion.div variants={item}>
+        <motion.div
+          whileHover={{
+            fill: "darkorange",
+          }}
+          variants={item}
+        >
           <Xiaomi boxSize={{ base: "14", md: "16", lg: "20" }} />
         </motion.div>
-        <motion.div variants={item}>
+        <motion.div
+          whileHover={{
+            fill: "blue",
+          }}
+          variants={item}
+        >
           <Samsung boxSize={{ base: "14", md: "16", lg: "20" }} />
         </motion.div>
       </LogosContainer>
