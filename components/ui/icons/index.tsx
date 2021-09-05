@@ -58,27 +58,27 @@ export const OptionIcons = ({
   os,
   prop,
   ...rest
-}: IconBaseProps & { os: string; prop: string }) => {
+}: IconProps & { os: string; prop: string }) => {
   switch (prop) {
     case "ram":
-      return <FaMicrochip {...rest} />;
+      return <Icon as={FaMicrochip} {...rest} />;
     case "storage":
-      return <MdStorage {...rest} />;
+      return <Icon as={MdStorage} {...rest} />;
     case "batterie":
-      return <MdBatteryChargingFull {...rest} />;
+      return <Icon as={MdBatteryChargingFull} {...rest} />;
     case "resolution":
-      return <CgScreen {...rest} />;
+      return <Icon as={CgScreen} {...rest} />;
     case "CPU":
-      return <FiCpu {...rest} />;
+      return <Icon as={FiCpu} {...rest} />;
     case "cameras":
-      return <AiOutlineCamera {...rest} />;
+      return <Icon as={AiOutlineCamera} {...rest} />;
     case "screenSize":
-      return <CgScreenShot {...rest} />;
+      return <Icon as={CgScreenShot} {...rest} />;
     case "OS":
       return os.toLowerCase().includes("ios") ? (
-        <SiIos {...rest} />
+        <Icon as={SiIos} {...rest} />
       ) : (
-        <AiFillAndroid {...rest} />
+        <Icon as={AiFillAndroid} {...rest} />
       );
     default:
       return null;
