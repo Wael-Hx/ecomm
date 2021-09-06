@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
+import Brands from "../components/fronpage/brands/Brands";
 import Card from "../components/fronpage/Card";
 import Navbar from "../components/nav/Navbar";
 import { initializeApollo } from "../graphql/client";
@@ -18,6 +19,7 @@ const Home = () => {
       </Head>
       <Navbar />
       <Card />
+      <Brands />
     </>
   );
 };
