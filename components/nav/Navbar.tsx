@@ -13,19 +13,22 @@ const Navbar = () => {
       justifyContent="space-between"
       as="nav"
       w="100%"
-      p="8px 0 2.6rem 0"
+      p="8px 0 2rem 0"
       bg="white"
     >
       <HStack paddingInline={["1em", "3em"]} spacing="1">
         <Icon as={FiSmartphone} boxSize="4vmin" />
-        <Heading fontSize="clamp(1.2rem ,3.5vmin,4rem )"> SHOP </Heading>
+        <Heading fontFamily="Raleway" fontSize="clamp(1.2rem ,2.6vmin,4rem )">
+          {" "}
+          SHOP{" "}
+        </Heading>
       </HStack>
 
       <HStack paddingInline={["1em", "3em"]} spacing="2">
         <Icon as={BiSearchAlt} boxSize="4vmin" />
         <HStack spacing="1">
           <Icon as={AiOutlineShoppingCart} boxSize="4vmin" />
-          <Heading fontWeight="normal" fontSize="clamp(1.2rem ,3.5vmin,4rem )">
+          <Heading fontWeight="normal" fontSize="clamp(1.2rem ,2.6vmin,4rem )">
             0
           </Heading>
         </HStack>
