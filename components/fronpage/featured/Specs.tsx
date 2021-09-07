@@ -58,7 +58,7 @@ const Specs = (props: SpecProps) => {
           variants={item}
         >
           <OptionIcons
-            color="#426e86"
+            color="#2a2a2a"
             boxSize="4vmin"
             os={optionsData.OS}
             prop={prop}
