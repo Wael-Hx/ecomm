@@ -54,6 +54,12 @@ export const BrandIcon = ({
   }
 };
 
+export const BrandColors: Record<string, string> = {
+  xiaomi: "darkorange",
+  apple: "silver",
+  samsung: "blue",
+};
+
 export const OptionIcons = ({
   os,
   prop,
