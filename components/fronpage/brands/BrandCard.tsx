@@ -1,9 +1,9 @@
-import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, Text } from "@chakra-ui/react";
 import { MouseEvent } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { Smartphone } from "../../../types";
-import { BrandIcon } from "../../ui/icons";
+import { BrandColors, BrandIcon } from "../../ui/icons";
 import FeaturedPhone from "./FeaturedPhone";
 
 const BrandCard = (props: BrandCardProps) => {
@@ -37,11 +37,24 @@ const BrandCard = (props: BrandCardProps) => {
       as="section"
     >
       <GridItem rowSpan={7} colSpan={1} display="grid" placeItems="center">
-        <BrandIcon brandName={props.brand} boxSize="12vmin" />
+        <BrandIcon
+          _hover={{
+            transform: "scale(1.1)",
+            fill: BrandColors[props.brand],
+          }}
+          transition="all 0.3s ease-in-out"
+          brandName={props.brand}
+          boxSize="12vmin"
+        />
       </GridItem>
-      <GridItem colSpan={6} rowSpan={1}>
+      <GridItem
+        colSpan={6}
+        rowSpan={1}
+        display="flex"
+        justifyContent="space-between"
+      >
         <Text
-          fontSize="clamp(0.8rem, 1.3vw, 4rem)"
+          fontSize="clamp(0.8rem, 2.5vmin, 4rem)"
           as="h4"
           fontFamily="Raleway"
           fontWeight="bold"
@@ -51,6 +64,14 @@ const BrandCard = (props: BrandCardProps) => {
             {props.brand}
           </Box>
         </Text>
+        <Button
+          fontStyle="italic"
+          fontSize="clamp(0.7rem, 2vmin, 3.6rem)"
+          variant="unstyled"
+          paddingInline="2"
+        >
+          {"more >"}
+        </Button>
       </GridItem>
       <GridItem
         tabIndex={0}
