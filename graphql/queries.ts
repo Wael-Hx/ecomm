@@ -30,6 +30,29 @@ export const GET_SHOP = gql`
   }
 `;
 
+export const GET_ITEMS = gql`
+  query GetItems($name: String!) {
+    getItems(name: $name) {
+      id
+      name
+      brand
+      specs {
+        resolution
+        cameras
+        CPU
+        batterie
+        OS
+      }
+      price
+      image
+      colors
+      ram
+      storage
+      size
+    }
+  }
+`;
+
 export const shop = makeVar<Shop>({
   brands: [],
   smartphones: [],
