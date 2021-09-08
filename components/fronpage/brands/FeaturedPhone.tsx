@@ -25,7 +25,7 @@ const FeaturedPhone = (props: FeaturedPhoneProps) => {
         <Text as="h4" textTransform="capitalize">
           {props.name}
         </Text>
-        <Text as="h4">{props.price}$ </Text>
+        <Text as="h4">${props.price} </Text>
       </VStack>
     </HStack>
   );

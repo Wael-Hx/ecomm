@@ -88,7 +88,7 @@ const FeaturedCard = () => {
             -20%
           </Text>
         </HStack>
-        <Text as="h4"> {((phone.price * 80) / 100).toFixed(2)}$ </Text>
+        <Text as="h4"> ${((phone.price * 80) / 100).toFixed(2)} </Text>
       </HStack>
       <MotionBox
         tabIndex={0}
