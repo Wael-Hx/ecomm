@@ -1,10 +1,11 @@
-import { Box, Button, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Link, Grid, GridItem, Text } from "@chakra-ui/react";
 import { MouseEvent } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { Smartphone } from "../../../types";
 import { BrandColors, BrandIcon } from "../../ui/icons";
 import FeaturedPhone from "./FeaturedPhone";
+import NextLink from "next/link";
 
 const BrandCard = (props: BrandCardProps) => {
   const [drag, setDrag] = useState(false);
@@ -64,14 +65,15 @@ const BrandCard = (props: BrandCardProps) => {
             {props.brand}
           </Box>
         </Text>
-        <Button
-          fontStyle="italic"
-          fontSize="clamp(0.7rem, 2vmin, 3.6rem)"
-          variant="unstyled"
-          paddingInline="2"
-        >
-          {"more >"}
-        </Button>
+        <NextLink href={`/b/${props.brand}`} passHref>
+          <Link
+            fontStyle="italic"
+            fontSize="clamp(0.7rem, 2vmin, 3.6rem)"
+            paddingInline="2"
+          >
+            {"more >"}
+          </Link>
+        </NextLink>
       </GridItem>
       <GridItem
         tabIndex={0}
