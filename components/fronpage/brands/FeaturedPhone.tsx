@@ -1,5 +1,7 @@
-import { Box, HStack, VStack } from "@chakra-ui/layout";
+import { Box, HStack, VStack, Button } from "@chakra-ui/react";
 import { Image, Text } from "@chakra-ui/react";
+import { CgDetailsMore } from "react-icons/cg";
+import NextLink from "next/link";
 
 const FeaturedPhone = (props: FeaturedPhoneProps) => {
   return (
@@ -21,11 +23,25 @@ const FeaturedPhone = (props: FeaturedPhoneProps) => {
           draggable={false}
         />
       </Box>
-      <VStack spacing="2">
+      <VStack spacing="3">
         <Text as="h4" textTransform="capitalize">
           {props.name}
         </Text>
         <Text as="h4">${props.price} </Text>
+        <NextLink href={`/p/${props.id}`}>
+          <Button
+            as="a"
+            fontFamily="Montserrat"
+            fontSize="1.7vmin"
+            colorScheme="white"
+            fontWeight="normal"
+            variant="link"
+            cursor="pointer"
+            leftIcon={<CgDetailsMore />}
+          >
+            Details
+          </Button>
+        </NextLink>
       </VStack>
     </HStack>
   );
@@ -37,4 +53,5 @@ interface FeaturedPhoneProps {
   cover: string;
   name: string;
   price: number;
+  id: string;
 }
