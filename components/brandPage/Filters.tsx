@@ -39,7 +39,7 @@ const Filters = (props: FiltersProps) => {
   };
 
   return (
-    <VStack as="section" pos="sticky" top="0" spacing="6" w="100%">
+    <VStack as="section" spacing="6" w="100%">
       <BrandIcon
         boxSize="10vmin"
         brandName={props.name}
