@@ -52,6 +52,28 @@ export const GET_ITEMS = gql`
     }
   }
 `;
+export const GET_PRODUCT = gql`
+  query GetItem($id: String!) {
+    getItem(id: $id) {
+      id
+      name
+      brand
+      specs {
+        resolution
+        cameras
+        CPU
+        batterie
+        OS
+      }
+      price
+      image
+      colors
+      ram
+      storage
+      size
+    }
+  }
+`;
 
 export const shop = makeVar<Shop>({
   brands: [],

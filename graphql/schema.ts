@@ -2,6 +2,7 @@ import { gql } from "apollo-server-micro";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import getShopData from "../firebase/getShopData";
 import getProducts from "../firebase/getProducts";
+import getItem from "../firebase/getItem";
 
 export const typeDefs = gql`
   type Brand {
@@ -35,6 +36,7 @@ export const typeDefs = gql`
   type Query {
     getShop: Shop
     getItems(name: String!): [Smartphone]
+    getItem(id: String!): Smartphone
   }
 `;
 
@@ -47,6 +49,10 @@ export const resolvers = {
     async getItems(_: any, { name }: { name: string }) {
       const items = await getProducts(name);
       return items;
+    },
+    async getItem(_: any, { id }: { id: string }) {
+      const product = await getItem(id);
+      return product;
     },
   },
 };
