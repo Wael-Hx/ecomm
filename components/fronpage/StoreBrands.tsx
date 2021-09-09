@@ -1,14 +1,14 @@
 import { Heading, VStack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
-import { Apple, Samsung, Xiaomi } from "../ui/icons";
+import { Apple, BrandColors, Samsung, Xiaomi } from "../ui/icons";
 
-const list = {
+export const list = {
   visible: {
     opacity: 1,
     transition: {
       when: "beforeChildren",
-      staggerChildren: 0.35,
+      staggerChildren: 0.2,
     },
   },
   hidden: {
@@ -19,7 +19,7 @@ const list = {
   },
 };
 
-const item = {
+export const item = {
   visible: { opacity: 1, x: 20 },
   hidden: { opacity: 0, x: -100 },
 };
@@ -42,7 +42,7 @@ const StoreBrands = () => {
     <VStack
       alignItems="start"
       spacing="4"
-      w={{ base: "100%", md: "65%" }}
+      w={{ base: "100%", sm: "60%" }}
       mt={{ base: "1rem", md: "3rem" }}
     >
       <motion.div
@@ -60,29 +60,35 @@ const StoreBrands = () => {
         </Heading>
       </motion.div>
       <LogosContainer initial="hidden" animate="visible" variants={list}>
-        <motion.div
-          whileHover={{
-            fill: "silver",
-          }}
-          variants={item}
-        >
-          <Apple boxSize="12vmin" />
+        <motion.div variants={item}>
+          <Apple
+            _hover={{
+              transform: "scale(1.1)",
+              fill: BrandColors["apple"],
+            }}
+            transition="all 0.3s ease-in-out"
+            boxSize="12vmin"
+          />
         </motion.div>
-        <motion.div
-          whileHover={{
-            fill: "darkorange",
-          }}
-          variants={item}
-        >
-          <Xiaomi boxSize="12vmin" />
+        <motion.div variants={item}>
+          <Xiaomi
+            _hover={{
+              transform: "scale(1.1)",
+              fill: BrandColors["xiaomi"],
+            }}
+            transition="all 0.3s ease-in-out"
+            boxSize="12vmin"
+          />
         </motion.div>
-        <motion.div
-          whileHover={{
-            fill: "blue",
-          }}
-          variants={item}
-        >
-          <Samsung boxSize="12vmin" />
+        <motion.div variants={item}>
+          <Samsung
+            _hover={{
+              transform: "scale(1.1)",
+              fill: BrandColors["samsung"],
+            }}
+            transition="all 0.3s ease-in-out"
+            boxSize="12vmin"
+          />
         </motion.div>
       </LogosContainer>
     </VStack>
