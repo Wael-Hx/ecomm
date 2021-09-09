@@ -1,5 +1,4 @@
 import { useApolloClient } from "@apollo/client";
-
 import { GET_SHOP } from "../../../graphql/queries";
 import { Shop } from "../../../types";
 import BrandCard from "./BrandCard";
