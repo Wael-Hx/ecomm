@@ -63,13 +63,7 @@ const Specs = (props: SpecProps) => {
             os={optionsData.OS}
             prop={prop}
           />
-          <Text
-            fontWeight="light"
-            as="h4"
-            fontSize="clamp(0.7rem, 1.8vmin, 2.5rem)"
-          >
-            {optionsData[prop]}
-          </Text>
+          <Text as="h4">{optionsData[prop]}</Text>
         </MotionContainer>
       ))}
     </MotionContainer>

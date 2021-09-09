@@ -12,6 +12,7 @@ import { motion, Variants } from "framer-motion";
 import { GET_SHOP } from "../../../graphql/queries";
 import { Shop, Smartphone } from "../../../types";
 import Specs from "./Specs";
+import { useRouter } from "next/router";
 
 const getItem = (smartphones: Smartphone[]) => {
   const idx = Math.ceil(Math.random() * (smartphones.length - 1));
@@ -58,7 +59,7 @@ const name: Variants = {
 
 const FeaturedCard = () => {
   const client = useApolloClient();
-
+  const router = useRouter();
   const data = client.readQuery<{ getShop: Shop }>({
     query: GET_SHOP,
   });
@@ -70,17 +71,14 @@ const FeaturedCard = () => {
 
   return (
     <AnimatedCard
-      fontFamily="Montserrat"
-      fontSize="clamp(0.7rem, 1.5vmin, 2.5rem)"
       alignItems="start"
-      w={{ base: "80%", md: "35%" }}
+      w={{ base: "80%", sm: "40%" }}
       spacing="2"
       mt={{ base: "1rem", md: "3rem" }}
       marginInline="auto"
       variants={card}
       initial="hidden"
       animate="visible"
-      h="65%"
     >
       <HStack fontWeight="light" spacing="1">
         <HStack w="5ch" h="3ch" bg="black">
@@ -94,8 +92,11 @@ const FeaturedCard = () => {
         tabIndex={0}
         background="url(/loading.svg) center no-repeat"
         backgroundSize="25% 25%"
-        maxW="67%"
-        w="67%"
+        maxW={{
+          base: "65%",
+          sm: "50%",
+          md: "67%",
+        }}
         css={{ aspectRatio: "9/12" }}
         pos="relative"
         initial="idle"
@@ -104,7 +105,13 @@ const FeaturedCard = () => {
         whileTap="hover"
         variants={imageAnimation}
       >
-        <Image w="100%" src={phone.image} alt={phone.name} />
+        <Image
+          onClick={() => router.push(`/p/${phone.id}`)}
+          cursor="pointer"
+          w="100%"
+          src={phone.image}
+          alt={phone.name}
+        />
         <Specs
           options={phone.specs}
           ram={phone.ram}
@@ -117,7 +124,6 @@ const FeaturedCard = () => {
           left="-5%"
           variants={name}
           as="h4"
-          fontWeight="medium"
           textTransform="uppercase"
         >
           {phone.name}
