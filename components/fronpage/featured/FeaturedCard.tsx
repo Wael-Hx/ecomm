@@ -6,6 +6,7 @@ import {
   StackProps,
   Text,
   VStack,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { motion, Variants } from "framer-motion";
 import { Smartphone } from "../../../types";
@@ -56,8 +57,9 @@ const name: Variants = {
 };
 
 const FeaturedCard = (props: FeaturedCardProps) => {
+  const [smallScreen] = useMediaQuery("(max-width:767px)");
   const router = useRouter();
-  if (!props.smartphones) {
+  if (!props.smartphones || smallScreen) {
     return null;
   }
 
@@ -86,11 +88,7 @@ const FeaturedCard = (props: FeaturedCardProps) => {
         tabIndex={0}
         background="url(/loading.svg) center no-repeat"
         backgroundSize="40% 40%"
-        maxW={{
-          base: "65%",
-          sm: "50%",
-          md: "67%",
-        }}
+        maxW="65%"
         css={{ aspectRatio: "9/12" }}
         pos="relative"
         initial="idle"

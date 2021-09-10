@@ -42,7 +42,7 @@ const StoreBrands = () => {
     <VStack
       alignItems="start"
       spacing="4"
-      w={{ base: "100%", sm: "60%" }}
+      w={{ base: "100%", md: "60%" }}
       mt={{ base: "1rem", md: "3rem" }}
     >
       <motion.div
@@ -54,7 +54,7 @@ const StoreBrands = () => {
         <Heading
           textTransform="uppercase"
           as="h1"
-          fontSize="clamp(2.5rem, 5vw, 7rem)"
+          fontSize="clamp(3rem, 5vw, 7rem)"
         >
           Explore our <br /> Deals
         </Heading>

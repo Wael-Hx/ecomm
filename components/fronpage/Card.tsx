@@ -14,7 +14,7 @@ const Card = (props: CardProps) => {
       margin="auto"
       as="section"
       w={{ base: "100%", md: "90%" }}
-      h="93vh"
+      h={{ base: "40vh", md: "93vh" }}
     >
       <StoreBrands />
       <FeaturedCard smartphones={props.shop.smartphones} />

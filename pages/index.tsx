@@ -1,10 +1,13 @@
-import { useQuery } from "@apollo/client";
 import { InferGetStaticPropsType } from "next";
+import dynamic from "next/dynamic";
 import Head from "next/head";
-import Brands from "../components/fronpage/brands/Brands";
 import Card from "../components/fronpage/Card";
 import Navbar from "../components/nav/Navbar";
 import getShopData from "../firebase/getShopData";
+
+const Brands = dynamic(() => import("../components/fronpage/brands/Brands"), {
+  ssr: false,
+});
 
 const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (

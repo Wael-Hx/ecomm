@@ -7,14 +7,13 @@ import { Image } from "@chakra-ui/image";
 const MobileLayout = (props: Props) => {
   return (
     <Grid
-      m="2.5rem auto"
-      h={["30rem", "40rem"]}
+      m="2rem auto"
+      h={["25rem", "35rem"]}
       w="95%"
       templateRows="repeat(2, 1fr)"
       templateColumns="repeat(2, 1fr)"
       gap={2}
-      fontFamily="Montserrat"
-      fontSize="0.6rem"
+      p="2"
       bg="black"
       borderRadius="md"
       border="1px solid silver"
@@ -49,10 +48,10 @@ const MobileLayout = (props: Props) => {
               <Box h="80%" w="50%">
                 <Image src={phone.image} alt={phone.name} />
               </Box>
-              <Text color="white" as="h4" textTransform="capitalize">
+              <Text color="white" as="h6" textTransform="capitalize">
                 {phone.name}
               </Text>
-              <Text color="white" as="h4" textTransform="capitalize">
+              <Text color="white" as="h6" textTransform="capitalize">
                 ${phone.price}
               </Text>
             </VStack>
