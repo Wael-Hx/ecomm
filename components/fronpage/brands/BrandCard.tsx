@@ -109,6 +109,7 @@ const BrandCard = (props: BrandCardProps) => {
         display="flex"
         css={{
           scrollbarWidth: "thin",
+          scrollBehavior: "smooth",
         }}
         userSelect="none"
       >
