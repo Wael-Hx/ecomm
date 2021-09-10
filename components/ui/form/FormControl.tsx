@@ -11,11 +11,7 @@ const CustomFormControl = ({
 }: CustomFormControlProps) => {
   return (
     <FormControl {...rest}>
-      <FormLabel
-        fontFamily="Raleway"
-        fontWeight="normal"
-        fontSize="clamp(0.6rem , 0.9vmax , 1.2vmax)"
-      >
+      <FormLabel fontFamily="Raleway" fontWeight="normal" fontSize="0.8rem">
         {labelTitle}
       </FormLabel>
       {children}
