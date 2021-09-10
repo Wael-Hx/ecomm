@@ -74,9 +74,7 @@ const ProductPage = ({ product }: Product) => {
             </Text>
             <VStack w="full" as="form" onSubmit={submitToCart}>
               <VStack alignSelf="start" spacing="1" alignItems="start">
-                <Text as="h5" textTransform="capitalize">
-                  available colors:
-                </Text>
+                <Text as="h5">Available colors:</Text>
                 <HStack spacing="1">
                   {product.colors.map((color) => (
                     <IconButton

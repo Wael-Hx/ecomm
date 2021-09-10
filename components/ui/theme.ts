@@ -11,27 +11,27 @@ const theme = extendTheme<Theme>({
     global: {
       h2: {
         fontFamily: "Raleway",
-        fontSize: "clamp(1.2rem ,2.6vmin,4rem )",
+        fontSize: "1.25rem",
         fontWeight: "bold",
       },
       h3: {
-        fontSize: "clamp(0.8rem, 2.5vmin, 4rem)",
-        fontWeight: "bold",
         fontFamily: "Raleway",
+        fontSize: "1.1rem",
+        fontWeight: "bold",
       },
       h4: {
         fontFamily: "Montserrat",
-        fontSize: "clamp(0.6rem , 0.9vmax , 1.2vmax)",
+        fontSize: "0.8rem",
         fontWeight: "normal",
       },
       h5: {
         fontFamily: "Raleway",
-        fontSize: "clamp(0.6rem , 0.9vmax , 1.2vmax)",
+        fontSize: "0.8rem",
         fontWeight: "normal",
       },
       h6: {
         fontFamily: "Montserrat",
-        fontSize: "clamp(0.6rem , 0.75vmax , 1.1vmax)",
+        fontSize: "0.7rem",
         fontWeight: "normal",
       },
     },

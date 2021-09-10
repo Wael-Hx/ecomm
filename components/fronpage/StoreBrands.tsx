@@ -54,7 +54,7 @@ const StoreBrands = () => {
         <Heading
           textTransform="uppercase"
           as="h1"
-          fontSize="clamp(2.5rem, 5.5vw, 20rem)"
+          fontSize="clamp(2.5rem, 5vw, 7rem)"
         >
           Explore our <br /> Deals
         </Heading>
