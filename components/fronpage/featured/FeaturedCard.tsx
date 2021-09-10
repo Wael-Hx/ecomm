@@ -85,7 +85,7 @@ const FeaturedCard = (props: FeaturedCardProps) => {
       <MotionBox
         tabIndex={0}
         background="url(/loading.svg) center no-repeat"
-        backgroundSize="25% 25%"
+        backgroundSize="40% 40%"
         maxW={{
           base: "65%",
           sm: "50%",
