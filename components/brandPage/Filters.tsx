@@ -1,17 +1,29 @@
-import { Button, Heading, Select, VStack } from "@chakra-ui/react";
+import { Button, Select, VStack, Text } from "@chakra-ui/react";
 import { CgDollar } from "react-icons/cg";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import CustomSlider from "../ui/form/Slider";
 import { BrandColors, BrandIcon } from "../ui/icons";
 import { useState, FormEvent, ChangeEvent } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  setShopFilters,
+  resetShopFilters,
+  initialState,
+} from "../brandPage/filtersSlice";
+import FormControl from "../ui/form/FormControl";
+import { FilterOptions } from "../../types";
+
+const compareFilter = (initial: FilterOptions, target: FilterOptions) => {
+  return (
+    Object.entries(initial).sort().toString() ===
+    Object.entries(target).sort().toString()
+  );
+};
 
 const Filters = (props: FiltersProps) => {
-  const [filters, setFilters] = useState({
-    price: 400,
-    size: 5,
-    ram: 0,
-    storage: 0,
-  });
+  const dispatch = useAppDispatch();
+  const shopFilters = useAppSelector((state) => state.filters);
+  const [filters, setFilters] = useState(shopFilters);
 
   const onPriceChange = (val: number) => {
     setFilters((currentFilters) => ({
@@ -35,7 +47,12 @@ const Filters = (props: FiltersProps) => {
 
   const submitFilters = (e: FormEvent) => {
     e.preventDefault();
-    console.log(filters);
+    dispatch(setShopFilters(filters));
+  };
+
+  const resetFilters = () => {
+    setFilters(initialState);
+    dispatch(resetShopFilters());
   };
 
   return (
@@ -46,63 +63,59 @@ const Filters = (props: FiltersProps) => {
         fill={BrandColors[props.name]}
       />
       <VStack onSubmit={submitFilters} as="form" w="100%" spacing="4">
-        <Heading
-          alignSelf="start"
-          as="h4"
-          fontFamily="Montserrat"
-          fontWeight="normal"
-          fontSize="0.8rem"
-        >
+        <Text alignSelf="start" as="h5">
           Minimum Price:
-        </Heading>
+        </Text>
         <CustomSlider
           thumbValue={filters.price}
           id="price-slider"
           focusThumbOnChange={false}
-          onChangeEnd={onPriceChange}
+          onChange={onPriceChange}
           name="price"
           aria-label="price-slider"
           SliderThumbIcon={CgDollar}
-          defaultValue={400}
+          value={filters.price}
           max={2000}
           min={100}
         />
-        <Heading
-          alignSelf="start"
-          as="h4"
-          fontFamily="Montserrat"
-          fontWeight="normal"
-          fontSize="0.8rem"
-        >
+        <Text alignSelf="start" as="h5">
           Minimum Screen Size:
-        </Heading>
+        </Text>
+
         <CustomSlider
           thumbValue={filters.size}
           id="screen-size-slider"
           focusThumbOnChange={false}
-          onChangeEnd={onSizeChange}
+          onChange={onSizeChange}
           name="size"
+          value={filters.size}
           aria-label="screensize-slider"
           SliderThumbIcon={BsArrowsAngleExpand}
-          defaultValue={5}
           max={8}
           min={4}
         />
-        <Select onChange={onSelectChange} name="storage" placeholder="storage">
-          {["8", "16", "32", "64"].map((val) => (
-            <option key={val} value={val}>
-              {`${val} Gb`}
-            </option>
-          ))}
-        </Select>
-        <Select onChange={onSelectChange} name="ram" placeholder="Ram">
-          {["4", "6", "8", "12"].map((val) => (
-            <option key={val} value={val}>
-              {`${val} Gb`}
-            </option>
-          ))}
-        </Select>
-
+        <FormControl labelTitle="Storage">
+          <Select
+            value={filters.storage}
+            onChange={onSelectChange}
+            name="storage"
+          >
+            {["8", "16", "32", "64"].map((val) => (
+              <option key={val} value={val}>
+                {`${val} Gb`}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl labelTitle="Ram">
+          <Select value={filters.ram} onChange={onSelectChange} name="ram">
+            {["4", "6", "8", "12"].map((val) => (
+              <option key={val} value={val}>
+                {`${val} Gb`}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
         <Button
           fontFamily="Montserrat"
           fontWeight="normal"
@@ -110,8 +123,21 @@ const Filters = (props: FiltersProps) => {
           w="full"
           variant="outline"
           type="submit"
+          onClick={submitFilters}
         >
-          Apply Filters
+          APPLY
+        </Button>
+        <Button
+          fontFamily="Montserrat"
+          fontWeight="normal"
+          fontSize="0.8rem"
+          w="full"
+          variant="outline"
+          type="button"
+          isDisabled={compareFilter(initialState, shopFilters)}
+          onClick={resetFilters}
+        >
+          RESET
         </Button>
       </VStack>
     </VStack>

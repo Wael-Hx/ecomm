@@ -14,22 +14,53 @@ import dynamic from "next/dynamic";
 import { CgDetailsMore } from "react-icons/cg";
 import { MdAddShoppingCart } from "react-icons/md";
 import Navbar from "../../components/nav/Navbar";
-import { Smartphone } from "../../types";
+import { FilterOptions, Smartphone } from "../../types";
 import NextLink from "next/link";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import Drawer from "../../components/ui/drawer/Drawer";
 import { BsFilter } from "react-icons/bs";
 import getProducts from "../../firebase/getProducts";
 import { getBrands } from "../../firebase/getBrands";
+import { useAppSelector } from "../../redux/hooks";
 
 const Filters = dynamic(() => import("../../components/brandPage/Filters"), {
   ssr: false,
 });
 
+const createFilter = (filters: FilterOptions, item: Smartphone) => {
+  if (!filters || Object.keys(filters).length === 0) {
+    return item;
+  } else {
+    return Object.keys(filters).every((p) => {
+      switch (p) {
+        case "price":
+          if (filters.price === 100) {
+            return item[p];
+          }
+          return item[p] <= filters[p];
+        case "ram":
+          return item[p][item[p].length - 1] >= filters[p];
+        case "storage":
+          return item[p][item[p].length - 1] >= filters[p];
+        case "size":
+          return item[p] >= filters[p];
+        default:
+          break;
+      }
+    });
+  }
+};
+
 const Name = (props: BrandProducts) => {
   const [verticalLayout] = useMediaQuery("(max-width:970px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement>(null);
+  const filters = useAppSelector((state) => state.filters);
+
+  const smartphones = useMemo(
+    () => props.products.filter((phone) => createFilter(filters, phone)),
+    [filters, props.products]
+  );
 
   return (
     <>
@@ -85,7 +116,12 @@ const Name = (props: BrandProducts) => {
           justifyContent={verticalLayout ? "center" : "start"}
           wrap="wrap"
         >
-          {props.products.map((phone) => (
+          {smartphones.length === 0 && (
+            <VStack w="90%">
+              <Text as="h2">No Smartphone matches your filters</Text>
+            </VStack>
+          )}
+          {smartphones.map((phone) => (
             <VStack
               key={phone.id}
               as="article"
