@@ -32,3 +32,10 @@ export interface Shop {
 export interface Cart {
   cart: Smartphone[];
 }
+
+export interface FilterOptions {
+  price: number;
+  storage: number;
+  ram: number;
+  size: number;
+}
