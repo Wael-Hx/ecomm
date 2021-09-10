@@ -14,13 +14,13 @@ import dynamic from "next/dynamic";
 import { CgDetailsMore } from "react-icons/cg";
 import { MdAddShoppingCart } from "react-icons/md";
 import Navbar from "../../components/nav/Navbar";
-import { initializeApollo } from "../../graphql/client";
-import { GET_ITEMS } from "../../graphql/queries";
 import { Smartphone } from "../../types";
 import NextLink from "next/link";
 import { useRef } from "react";
 import Drawer from "../../components/ui/drawer/Drawer";
 import { BsFilter } from "react-icons/bs";
+import getProducts from "../../firebase/getProducts";
+import { getBrands } from "../../firebase/getBrands";
 
 const Filters = dynamic(() => import("../../components/brandPage/Filters"), {
   ssr: false,
@@ -146,20 +146,28 @@ interface Params {
   params: { name: string };
 }
 
-export async function getServerSideProps({ params }: Params) {
+export async function getStaticProps({ params }: Params) {
   const { name } = params;
-  const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query<{ getItems: Smartphone[] }>({
-    query: GET_ITEMS,
-    variables: {
-      name,
-    },
-  });
+
+  const data = await getProducts(name);
 
   return {
     props: {
-      products: data.getItems,
+      products: data,
       brand: name,
     },
+  };
+}
+
+export async function getStaticPaths() {
+  const brands = await getBrands();
+
+  return {
+    paths: brands.map((brand) => ({
+      params: {
+        name: brand.name,
+      },
+    })),
+    fallback: false,
   };
 }

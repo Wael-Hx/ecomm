@@ -1,8 +1,6 @@
 import { Button, IconButton, Select } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/image";
 import { VStack, Text, StackProps, Box, HStack } from "@chakra-ui/layout";
-import { initializeApollo } from "../../graphql/client";
-import { GET_PRODUCT } from "../../graphql/queries";
 import { Smartphone } from "../../types";
 import { MdAddShoppingCart } from "react-icons/md";
 import { motion } from "framer-motion";
@@ -12,6 +10,7 @@ import Navbar from "../../components/nav/Navbar";
 import { BsCircleFill } from "react-icons/bs";
 import { FormEvent, ChangeEvent, useState } from "react";
 import FormControl from "../../components/ui/form/FormControl";
+import getItem from "../../firebase/getItem";
 
 const MotionDetails = motion<StackProps>(HStack);
 const MotionIcon = motion<StackProps>(VStack);
@@ -192,17 +191,16 @@ interface Params {
 
 export async function getServerSideProps({ params }: Params) {
   const { id } = params;
-  const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query<{ getItem: Smartphone }>({
-    query: GET_PRODUCT,
-    variables: {
-      id,
-    },
-  });
+  const product = await getItem(id);
+  if (!product) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      product: data.getItem,
+      product,
     },
   };
 }

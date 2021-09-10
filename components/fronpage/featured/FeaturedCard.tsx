@@ -1,4 +1,3 @@
-import { useApolloClient } from "@apollo/client";
 import {
   Box,
   BoxProps,
@@ -9,8 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { motion, Variants } from "framer-motion";
-import { GET_SHOP } from "../../../graphql/queries";
-import { Shop, Smartphone } from "../../../types";
+import { Smartphone } from "../../../types";
 import Specs from "./Specs";
 import { useRouter } from "next/router";
 
@@ -57,17 +55,13 @@ const name: Variants = {
   },
 };
 
-const FeaturedCard = () => {
-  const client = useApolloClient();
+const FeaturedCard = (props: FeaturedCardProps) => {
   const router = useRouter();
-  const data = client.readQuery<{ getShop: Shop }>({
-    query: GET_SHOP,
-  });
-  if (!data) {
+  if (!props.smartphones) {
     return null;
   }
 
-  const phone = getItem(data.getShop.smartphones);
+  const phone = getItem(props.smartphones);
 
   return (
     <AnimatedCard
@@ -134,3 +128,7 @@ const FeaturedCard = () => {
 };
 
 export default FeaturedCard;
+
+interface FeaturedCardProps {
+  smartphones: Smartphone[];
+}

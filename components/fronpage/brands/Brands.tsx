@@ -1,18 +1,9 @@
-import { useApolloClient } from "@apollo/client";
-import { GET_SHOP } from "../../../graphql/queries";
 import { Shop } from "../../../types";
 import BrandCard from "./BrandCard";
 
-const Brands = () => {
-  const client = useApolloClient();
-  const data = client.readQuery<{ getShop: Shop }>({
-    query: GET_SHOP,
-  });
-  if (!data) {
-    return null;
-  }
-  const brands = data.getShop.brands,
-    smartphones = data.getShop.smartphones;
+const Brands = (props: BrandsProps) => {
+  const brands = props.shop.brands,
+    smartphones = props.shop.smartphones;
 
   return (
     <>
@@ -33,3 +24,7 @@ const Brands = () => {
 };
 
 export default Brands;
+
+interface BrandsProps {
+  shop: Shop;
+}

@@ -1,15 +1,12 @@
 import { useQuery } from "@apollo/client";
+import { InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Brands from "../components/fronpage/brands/Brands";
 import Card from "../components/fronpage/Card";
 import Navbar from "../components/nav/Navbar";
-import { initializeApollo } from "../graphql/client";
-import { GET_SHOP } from "../graphql/queries";
-import { Shop } from "../types";
+import getShopData from "../firebase/getShopData";
 
-const Home = () => {
-  useQuery(GET_SHOP);
-
+const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <Head>
@@ -18,22 +15,19 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <Card />
-      <Brands />
+      <Card shop={props.shop} />
+      <Brands shop={props.shop} />
     </>
   );
 };
 
 export default Home;
-export async function getStaticProps() {
-  const apolloClient = initializeApollo();
-  await apolloClient.query<{ getShop: Shop }>({
-    query: GET_SHOP,
-  });
 
+export async function getStaticProps() {
+  const shop = await getShopData();
   return {
     props: {
-      initialApolloState: apolloClient.cache.extract(),
+      shop,
     },
   };
 }

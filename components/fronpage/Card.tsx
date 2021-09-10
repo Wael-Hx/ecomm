@@ -1,12 +1,13 @@
 import dynamic from "next/dynamic";
 import { Flex } from "@chakra-ui/react";
 import StoreBrands from "./StoreBrands";
+import { Shop } from "../../types";
 
 const FeaturedCard = dynamic(() => import("./featured/FeaturedCard"), {
   ssr: false,
 });
 
-const Card = () => {
+const Card = (props: CardProps) => {
   return (
     <Flex
       wrap="wrap"
@@ -16,9 +17,13 @@ const Card = () => {
       h="93vh"
     >
       <StoreBrands />
-      <FeaturedCard />
+      <FeaturedCard smartphones={props.shop.smartphones} />
     </Flex>
   );
 };
 
 export default Card;
+
+interface CardProps {
+  shop: Shop;
+}
