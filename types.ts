@@ -29,13 +29,26 @@ export interface Shop {
   smartphones: Smartphone[];
 }
 
-export interface Cart {
-  cart: Smartphone[];
-}
-
 export interface FilterOptions {
   price: number;
   storage: number;
   ram: number;
   size: number;
+}
+
+export interface CartItem {
+  id: string;
+  name: string;
+  image?: string;
+  price: number;
+  ram: number;
+  storage: number;
+  color: string;
+  specs: Spec;
+  qty: number;
+}
+
+export interface Cart {
+  products: CartItem[];
+  total: number;
 }
