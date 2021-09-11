@@ -14,14 +14,16 @@ import dynamic from "next/dynamic";
 import { CgDetailsMore } from "react-icons/cg";
 import { MdAddShoppingCart } from "react-icons/md";
 import Navbar from "../../components/nav/Navbar";
-import { FilterOptions, Smartphone } from "../../types";
+import { CartItem, FilterOptions, Smartphone } from "../../types";
 import NextLink from "next/link";
 import { useRef, useMemo } from "react";
 import Drawer from "../../components/ui/drawer/Drawer";
 import { BsFilter } from "react-icons/bs";
 import getProducts from "../../firebase/getProducts";
 import { getBrands } from "../../firebase/getBrands";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import Head from "next/head";
+import { addToCart } from "../../components/cart/cartSlice";
 
 const Filters = dynamic(() => import("../../components/brandPage/Filters"), {
   ssr: false,
@@ -55,7 +57,33 @@ const Name = (props: BrandProducts) => {
   const [verticalLayout] = useMediaQuery("(max-width:970px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement>(null);
+  const dispatch = useAppDispatch();
   const filters = useAppSelector((state) => state.filters);
+
+  const add = ({
+    id,
+    name,
+    image,
+    storage,
+    ram,
+    colors,
+    price,
+    specs,
+  }: Smartphone) => {
+    dispatch(
+      addToCart({
+        id,
+        name,
+        image,
+        storage: storage[0],
+        ram: ram[0],
+        color: colors[0],
+        price,
+        specs,
+        qty: 1,
+      })
+    );
+  };
 
   const smartphones = useMemo(
     () => props.products.filter((phone) => createFilter(filters, phone)),
@@ -64,6 +92,10 @@ const Name = (props: BrandProducts) => {
 
   return (
     <>
+      <Head>
+        <title> {`Deals from ${props.brand}`} </title>
+        <meta name="og:title" content={`Deals from ${props.brand}`} />
+      </Head>
       <Navbar />
       <HStack
         pos="relative"
@@ -148,6 +180,7 @@ const Name = (props: BrandProducts) => {
                   fontSize="clamp(0.7rem, 2vmin, 3.6rem)"
                   variant="outline"
                   leftIcon={<MdAddShoppingCart />}
+                  onClick={() => add(phone)}
                 >
                   Add
                 </Button>

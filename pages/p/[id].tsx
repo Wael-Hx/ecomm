@@ -1,7 +1,7 @@
 import { Button, IconButton, Select } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/image";
 import { VStack, Text, StackProps, Box, HStack } from "@chakra-ui/layout";
-import { Smartphone } from "../../types";
+import { CartItem, Smartphone } from "../../types";
 import { MdAddShoppingCart } from "react-icons/md";
 import { motion } from "framer-motion";
 import { list, item } from "../../components/fronpage/StoreBrands";
@@ -11,6 +11,9 @@ import { BsCircleFill } from "react-icons/bs";
 import { FormEvent, ChangeEvent, useState } from "react";
 import FormControl from "../../components/ui/form/FormControl";
 import getItem from "../../firebase/getItem";
+import Head from "next/head";
+import { addToCart } from "../../components/cart/cartSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 const MotionDetails = motion<StackProps>(HStack);
 const MotionIcon = motion<StackProps>(VStack);
@@ -27,14 +30,17 @@ const ProductPage = ({ product }: Product) => {
     ram: product.ram.map((val) => `${val}GB`).join(" | "),
   };
 
-  const [smartphone, setSmartphone] = useState({
+  const dispatch = useAppDispatch();
+
+  const [smartphone, setSmartphone] = useState<CartItem>({
+    id: product.id,
     name: product.name,
     price: product.price,
     ram: product.ram[0],
     storage: product.storage[0],
     color: product.colors[0],
     specs: product.specs,
-    qty: 0,
+    qty: 1,
   });
 
   const setColor = (color: string) => {
@@ -52,14 +58,24 @@ const ProductPage = ({ product }: Product) => {
 
   const submitToCart = (e: FormEvent) => {
     e.preventDefault();
-    alert(JSON.stringify(smartphone, null, 2));
+    dispatch(addToCart({ ...smartphone, image: product.image }));
   };
 
   return (
     <>
+      <Head>
+        <title> {product.name} </title>
+        <meta name="og:title" content={product.name} />
+        <meta name="og:image" content={product.image} />
+      </Head>
       <Navbar />
       <VStack w="100%" minH="88vh" spacing="5">
-        <HStack wrap="wrap" w={["100%", "100%", "75%"]} spacing="3">
+        <HStack
+          alignItems="start"
+          wrap="wrap"
+          w={["100%", "100%", "75%"]}
+          spacing="3"
+        >
           <Box marginInline={["auto", 0, 0]} p="4" w={["45%", "40%", "30%"]}>
             <Image src={product.image} alt={product.name} />
           </Box>
@@ -67,7 +83,7 @@ const ProductPage = ({ product }: Product) => {
             p="2"
             alignItems={["center", "center", "start"]}
             w={["100%", "40%"]}
-            spacing="3"
+            spacing="5"
           >
             <Text as="h2" textTransform="capitalize">
               {product.name}
@@ -121,22 +137,9 @@ const ProductPage = ({ product }: Product) => {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl labelTitle="Available Quantity :" id="select-ram">
-                <Select
-                  onChange={onSelectChange}
-                  value={smartphone.qty}
-                  name="qty"
-                >
-                  {Array.from({ length: 7 }, (_, i) => i + 1).map((val) => (
-                    <option key={val} value={val}>
-                      {val}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
 
               <Button type="submit" leftIcon={<MdAddShoppingCart />} w="full">
-                ${product.price}
+                ${smartphone.price}
               </Button>
             </VStack>
           </VStack>
