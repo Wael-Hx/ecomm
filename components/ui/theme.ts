@@ -31,7 +31,7 @@ const theme = extendTheme<Theme>({
       },
       h6: {
         fontFamily: "Montserrat",
-        fontSize: "0.7rem",
+        fontSize: "0.73rem",
         fontWeight: "normal",
       },
     },

@@ -86,7 +86,7 @@ const BrandCard = (props: BrandCardProps) => {
         <NextLink href={`/b/${props.brand}`} passHref>
           <Link
             fontStyle="italic"
-            fontSize="clamp(0.7rem, 2vmin, 3.6rem)"
+            fontSize="clamp(0.7rem, 2vmin, 1.2rem)"
             paddingInline="2"
           >
             {"more >"}
@@ -109,7 +109,6 @@ const BrandCard = (props: BrandCardProps) => {
         display="flex"
         css={{
           scrollbarWidth: "thin",
-          scrollBehavior: "smooth",
         }}
         userSelect="none"
       >
