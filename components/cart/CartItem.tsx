@@ -20,7 +20,6 @@ const CartProduct = ({ product }: CartItemProps) => {
   const [quantity, setQuantity] = useState(product.qty);
 
   const onQuantityChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
     let newQty = e.target.value ? Number(e.target.value) : 1;
     setQuantity(newQty);
     dispatch(addToCart({ ...product, qty: newQty }));
