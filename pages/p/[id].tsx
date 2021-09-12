@@ -50,9 +50,22 @@ const ProductPage = ({ product }: Product) => {
     }));
   };
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    let storageOption = Number(e.target.value);
+    let variants = getPriceVariants(
+      product["storage"],
+      product["ram"],
+      product.price
+    );
     setSmartphone((currentProduct) => ({
       ...currentProduct,
-      [e.target.name]: parseInt(e.target.value),
+      [e.target.name]: storageOption,
+    }));
+    setSmartphone((currentProduct) => ({
+      ...currentProduct,
+      price:
+        product.price +
+        variants[currentProduct.ram] +
+        variants[currentProduct.storage],
     }));
   };
 
@@ -203,5 +216,26 @@ export async function getServerSideProps({ params }: Params) {
     props: {
       product,
     },
+  };
+}
+
+function getPriceVariants(var1: number[], var2: number[], price: number) {
+  const priceVariant = (
+    variants: number[],
+    initialPrice: number,
+    factor: number
+  ) =>
+    variants.reduce(
+      (res: Record<number, number>, current, idx) =>
+        Object.assign(res, {
+          [current]: Math.round((idx * factor * initialPrice) / 100),
+        }),
+      {}
+    );
+  let priceVariant1 = priceVariant(var1, price, 8);
+  let priceVariant2 = priceVariant(var2, price, 4);
+  return {
+    ...priceVariant1,
+    ...priceVariant2,
   };
 }
