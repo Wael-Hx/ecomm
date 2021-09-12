@@ -17,7 +17,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         <meta name="description" content="Smartphone Shop" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
+      <Navbar smartphones={props.shop.smartphones} />
       <Card shop={props.shop} />
       <Brands shop={props.shop} />
     </>

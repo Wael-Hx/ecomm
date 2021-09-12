@@ -9,23 +9,46 @@ import {
   InputGroup,
   Button,
   useDisclosure,
+  useBoolean,
 } from "@chakra-ui/react";
 import { FiSmartphone } from "react-icons/fi";
 import { BiSearchAlt } from "react-icons/bi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, ChangeEvent, useMemo, useState } from "react";
 import NextLink from "next/link";
 import { useAppSelector } from "../../redux/hooks";
 import Drawer from "../ui/drawer/Drawer";
 import UserCart from "../cart/Cart";
+import { Smartphone } from "../../types";
+import Search from "./Search";
+import { useRouter } from "next/router";
 
-const Navbar = () => {
+const Navbar = (props: NavbarProps) => {
   const cart = useAppSelector((state) => state.cart);
+  const router = useRouter();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [openSearchBox, { on, off }] = useBoolean(false);
   const btnRef = useRef<HTMLButtonElement>(null);
+  const [search, setSearch] = useState("");
+
+  const results = useMemo(() => {
+    let smartphones = props.smartphones || [];
+    if (search.trim().length < 3) {
+      return [];
+    }
+    return smartphones.filter((phone) =>
+      phone.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    );
+  }, [search, props.smartphones]);
+
+  const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
 
   const submitSearch = (e: FormEvent) => {
     e.preventDefault();
+    on();
   };
 
   return (
@@ -50,18 +73,26 @@ const Navbar = () => {
           </NextLink>
         </HStack>
 
-        <Box as="form" w="75%" onSubmit={submitSearch}>
-          <InputGroup paddingInline={["1ch", "2ch"]}>
-            <Input type="text" placeholder="search..." />
-            <IconButton
-              marginInline="0.5rem"
-              variant="outline"
-              icon={<BiSearchAlt color="gray.300" />}
-              aria-label="search"
-              type="submit"
-            />
-          </InputGroup>
-        </Box>
+        {router.pathname === "/" && (
+          <Box as="form" w="75%" onSubmit={submitSearch}>
+            <InputGroup paddingInline={["1ch", "2ch"]}>
+              <Input
+                onChange={onSearchChange}
+                type="text"
+                placeholder="search..."
+              />
+              <IconButton
+                marginInline="0.5rem"
+                variant="outline"
+                icon={<BiSearchAlt color="gray.300" />}
+                aria-label="search"
+                type="submit"
+              />
+            </InputGroup>
+
+            <Search isOpen={openSearchBox} close={off} results={results} />
+          </Box>
+        )}
 
         <Button
           ref={btnRef}
@@ -90,3 +121,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+interface NavbarProps {
+  smartphones?: Smartphone[];
+}
