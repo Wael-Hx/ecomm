@@ -28,7 +28,7 @@ const FeaturedPhone = (props: FeaturedPhoneProps) => {
           {props.name}
         </Text>
         <Text as="h4">${props.price} </Text>
-        <NextLink href={`/p/${props.id}`}>
+        <NextLink href={`/p/${props.id}`} passHref>
           <Button
             as="a"
             fontFamily="Montserrat"
