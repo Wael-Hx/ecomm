@@ -184,7 +184,7 @@ const Name = (props: BrandProducts) => {
                 >
                   Add
                 </Button>
-                <NextLink href={`/p/${phone.id}`}>
+                <NextLink href={`/p/${phone.id}`} passHref>
                   <Button
                     fontSize="clamp(0.7rem, 2vmin, 3.6rem)"
                     as="a"
