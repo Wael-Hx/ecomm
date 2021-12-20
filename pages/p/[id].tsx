@@ -14,6 +14,7 @@ import getItem from "../../firebase/getItem";
 import Head from "next/head";
 import { addToCart } from "../../components/cart/cartSlice";
 import { useAppDispatch } from "../../redux/hooks";
+import getShopData from "../../firebase/getShopData";
 
 const MotionDetails = motion<StackProps>(HStack);
 const MotionIcon = motion<StackProps>(VStack);
@@ -51,11 +52,7 @@ const ProductPage = ({ product }: Product) => {
   };
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     let storageOption = Number(e.target.value);
-    let variants = getPriceVariants(
-      product["storage"],
-      product["ram"],
-      product.price
-    );
+    let variants = getPriceVariants(product["storage"], product["ram"], product.price);
     setSmartphone((currentProduct) => ({
       ...currentProduct,
       [e.target.name]: storageOption,
@@ -63,9 +60,7 @@ const ProductPage = ({ product }: Product) => {
     setSmartphone((currentProduct) => ({
       ...currentProduct,
       price:
-        product.price +
-        variants[currentProduct.ram] +
-        variants[currentProduct.storage],
+        product.price + variants[currentProduct.ram] + variants[currentProduct.storage],
     }));
   };
 
@@ -83,12 +78,7 @@ const ProductPage = ({ product }: Product) => {
       </Head>
       <Navbar />
       <VStack w="100%" minH="88vh" spacing="5">
-        <HStack
-          alignItems="start"
-          wrap="wrap"
-          w={["100%", "100%", "75%"]}
-          spacing="3"
-        >
+        <HStack alignItems="start" wrap="wrap" w={["100%", "100%", "75%"]} spacing="3">
           <Box marginInline={["auto", 0, 0]} p="4" w={["45%", "40%", "30%"]}>
             <Image src={product.image} alt={product.name} />
           </Box>
@@ -110,9 +100,7 @@ const ProductPage = ({ product }: Product) => {
                       size={smartphone.color === color ? "md" : "sm"}
                       bg={smartphone.color === color ? color : undefined}
                       outline={
-                        smartphone.color === color
-                          ? "2px solid silver"
-                          : undefined
+                        smartphone.color === color ? "2px solid silver" : undefined
                       }
                       onClick={() => setColor(color)}
                       type="button"
@@ -138,11 +126,7 @@ const ProductPage = ({ product }: Product) => {
                 </Select>
               </FormControl>
               <FormControl labelTitle="Ram :" id="select-ram">
-                <Select
-                  onChange={onSelectChange}
-                  value={smartphone.ram}
-                  name="ram"
-                >
+                <Select onChange={onSelectChange} value={smartphone.ram} name="ram">
                   {product.ram.map((val) => (
                     <option key={val} value={val}>
                       {`${val} Gb`}
@@ -203,7 +187,7 @@ interface Params {
   params: { id: string };
 }
 
-export async function getServerSideProps({ params }: Params) {
+export async function getStaticProps({ params }: Params) {
   const { id } = params;
   const product = await getItem(id);
   if (!product) {
@@ -219,12 +203,20 @@ export async function getServerSideProps({ params }: Params) {
   };
 }
 
+export async function getStaticPaths() {
+  const shop = await getShopData();
+  const staticPaths = shop.smartphones.map((phone) => ({
+    params: { id: phone.id },
+  }));
+
+  return {
+    paths: staticPaths,
+    fallback: false,
+  };
+}
+
 function getPriceVariants(var1: number[], var2: number[], price: number) {
-  const priceVariant = (
-    variants: number[],
-    initialPrice: number,
-    factor: number
-  ) =>
+  const priceVariant = (variants: number[], initialPrice: number, factor: number) =>
     variants.reduce(
       (res: Record<number, number>, current, idx) =>
         Object.assign(res, {
