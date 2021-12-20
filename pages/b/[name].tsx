@@ -60,16 +60,7 @@ const Name = (props: BrandProducts) => {
   const dispatch = useAppDispatch();
   const filters = useAppSelector((state) => state.filters);
 
-  const add = ({
-    id,
-    name,
-    image,
-    storage,
-    ram,
-    colors,
-    price,
-    specs,
-  }: Smartphone) => {
+  const add = ({ id, name, image, storage, ram, colors, price, specs }: Smartphone) => {
     dispatch(
       addToCart({
         id,
@@ -122,6 +113,7 @@ const Name = (props: BrandProducts) => {
               size="lg"
               bg="white"
               boxShadow="md"
+              colorScheme="twitter"
               icon={<BsFilter />}
             />
             <Drawer
