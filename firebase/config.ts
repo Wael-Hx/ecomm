@@ -1,8 +1,7 @@
-import firebase from "firebase/app";
-import "firebase/firestore";
+import { initializeApp, getApps, getApp } from "firebase/app";
 
-if (!firebase.apps.length) {
-  firebase.initializeApp({
+if (!getApps().length) {
+  initializeApp({
     apiKey: process.env.API_KEY,
     authDomain: process.env.AUTH_DOMAIN,
     databaseURL: process.env.DATABASE_URL,
@@ -14,4 +13,4 @@ if (!firebase.apps.length) {
   });
 }
 
-export const db = firebase.firestore();
+export default getApp();
