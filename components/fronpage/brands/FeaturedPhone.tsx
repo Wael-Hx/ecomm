@@ -21,6 +21,7 @@ const FeaturedPhone = (props: FeaturedPhoneProps) => {
           src={props.cover}
           alt={props.name}
           draggable={false}
+          pointerEvents="none"
         />
       </Box>
       <VStack spacing="3">

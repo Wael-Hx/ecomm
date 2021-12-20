@@ -1,11 +1,4 @@
-import {
-  Box,
-  Link,
-  Grid,
-  GridItem,
-  Text,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Link, Grid, GridItem, Text, useMediaQuery } from "@chakra-ui/react";
 import { MouseEvent, useState, useRef } from "react";
 import { Smartphone } from "../../../types";
 import { BrandColors, BrandIcon } from "../../ui/icons";
@@ -23,8 +16,7 @@ const BrandCard = (props: BrandCardProps) => {
   const mouseDownHandler = (e: MouseEvent) => {
     setDrag(true);
     mouseDownPos.current = e.clientX;
-    if (cardContainerRef.current)
-      scrollPos.current = cardContainerRef.current.scrollLeft;
+    if (cardContainerRef.current) scrollPos.current = cardContainerRef.current.scrollLeft;
   };
   const mouseMoveHandler = (e: MouseEvent) => {
     const offset = e.clientX - mouseDownPos.current;
@@ -35,12 +27,7 @@ const BrandCard = (props: BrandCardProps) => {
     setDrag(false);
   };
   if (mobileLayout) {
-    return (
-      <MobileLayout
-        topPhones={props.topPhones.slice(0, 3)}
-        brand={props.brand}
-      />
-    );
+    return <MobileLayout topPhones={props.topPhones.slice(0, 3)} brand={props.brand} />;
   }
   return (
     <Grid
@@ -53,13 +40,7 @@ const BrandCard = (props: BrandCardProps) => {
       as="section"
     >
       <NextLink href={`/b/${props.brand}`} passHref>
-        <GridItem
-          as="a"
-          rowSpan={7}
-          colSpan={1}
-          display="grid"
-          placeItems="center"
-        >
+        <GridItem as="a" rowSpan={7} colSpan={1} display="grid" placeItems="center">
           <BrandIcon
             _hover={{
               transform: "scale(1.1)",
@@ -71,12 +52,7 @@ const BrandCard = (props: BrandCardProps) => {
           />
         </GridItem>
       </NextLink>
-      <GridItem
-        colSpan={6}
-        rowSpan={1}
-        display="flex"
-        justifyContent="space-between"
-      >
+      <GridItem colSpan={6} rowSpan={1} display="flex" justifyContent="space-between">
         <Text as="h3">
           Featured from{" "}
           <Box as="span" textTransform="capitalize">
