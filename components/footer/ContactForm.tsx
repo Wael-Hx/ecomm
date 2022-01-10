@@ -73,7 +73,7 @@ const ContactFrom = () => {
         loading: false,
       });
     } finally {
-      setFormData(initialFormData);
+      if (!status.error) setFormData(initialFormData);
     }
   };
 
