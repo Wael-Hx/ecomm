@@ -1,6 +1,7 @@
 import { InferGetStaticPropsType } from "next";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import Footer from "../components/footer/Footer";
 import Card from "../components/fronpage/Card";
 import Navbar from "../components/nav/Navbar";
 import getShopData from "../firebase/getShopData";
@@ -20,6 +21,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       <Navbar smartphones={props.shop.smartphones} />
       <Card shop={props.shop} />
       <Brands shop={props.shop} />
+      <Footer />
     </>
   );
 };
